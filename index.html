@@ -98,7 +98,7 @@
                         app.$toast.open(text)
                     },
                     getAudioList: () => {
-                        app.$http.get('/audio_list.php')
+                        app.$http.get('./audio_list.php')
                             .then(response => this.audio_list = response.data)
                     }
                 }
