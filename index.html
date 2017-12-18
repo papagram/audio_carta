@@ -82,9 +82,11 @@
                 methods: {
                     start: () => {
                         app.message('いざ、しょうぶ！')
-                        const carta = new Carta(audios)
-                        carta.shuffle()
-                        carta.play()
+                        setTimeout(() => {
+                            const carta = new Carta(audios)
+                            carta.shuffle()
+                            carta.play()
+                        }, 1000)
                     },
                     message: (text) => {
                         app.$toast.open(text)
