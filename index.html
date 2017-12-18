@@ -34,15 +34,16 @@
         <script src="https://unpkg.com/buefy"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/howler@2.0.6/dist/howler.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script>
             class Carta {
-                constructor(audios) {
-                    this.audios = audios
+                constructor(audio_list) {
+                    this.audio_list = audio_list
                 }
 
                 shuffle() {
-                    let arr = this.audios
+                    let arr = this.audio_list
                     let n = arr.length
                     let temp, i
 
@@ -53,17 +54,17 @@
                         arr[i] = temp
                     }
 
-                    this.audios = arr
+                    this.audio_list = arr
                 }
 
                 play() {
                     const self = this
 
                     new Howl({
-                        src: self.audios[0],
+                        src: self.audio_list[0],
                         onend: () => {
-                            self.audios.shift();
-                            if (self.audios.length > 0) {
+                            self.audio_list.shift();
+                            if (self.audio_list.length > 0) {
                                 setTimeout(() => self.play(), 3000)
                             } else {
                                 setTimeout(() => app.message('おしまい'), 1000)
@@ -73,23 +74,32 @@
                 }
             }
 
-            const audios = ['audios/i.mp3', 'audios/ko.mp3', 'audios/bu.mp3']
-
             Vue.use(Buefy.default)
+            Vue.prototype.$http = axios
 
             const app = new Vue({
                 el: '#app',
+                data: {
+                    audio_list: []
+                },
                 methods: {
                     start: () => {
+                        app.getAudioList()
+
                         app.message('いざ、しょうぶ！')
+
                         setTimeout(() => {
-                            const carta = new Carta(audios)
+                            const carta = new Carta(this.audio_list)
                             carta.shuffle()
                             carta.play()
                         }, 1000)
                     },
                     message: (text) => {
                         app.$toast.open(text)
+                    },
+                    getAudioList: () => {
+                        app.$http.get('/audio_list.php')
+                            .then(response => this.audio_list = response.data)
                     }
                 }
             })
