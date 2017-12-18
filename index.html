@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Carta</title>
+
+        <!-- Buefy CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/buefy/lib/buefy.min.css">
+
+        <!-- Include Material Design Icons -->
+        <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css">
+
+        <style>
+            #app {
+                margin: 2em auto;
+                width: 400px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <button class="button is-large is-info is-outlined" @click="start()">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANaSURBVEhL7VXdS1NhGD9rfpTWkJUiGtNEKm+iMvyg4Li2OVtnX2JFCooWUhJGVwp5Yd2k9EEXBk4R6mKBRU1hVLi5Y1tb6Vw2d2a53GyD0UV/ghen93nPWSg60rlFF/7gB+c97/ue3/k97/M8L7GDpOBNQERYma51nJgn+RUpgoWRICF2PX33+BUpgNVnENL+gVJnwC5xLLr32vw/d08ygX8gzLACqy+q/hJmT7tD2Gm2zf8rdcJWnxHRcnI66DkxveTPff+VLf6wyFYh8WJHYC6VwmH4ODiVf/6BnYqROIzLXAFn8oWtzChisNodnJPOhiJZ9AIWlHmW2fLp7wGBlYmkWZkRwjJfQrxjxPyuJMDqc4Cbs7PL+FzheY/Nj51WzIS8vFMjv/ovUNewq+jg364FPlMGfxxEQAzG8Aw/wQtuvDcuOMEVgUYaEehkZuK8rITQK/LwHD2XA2GD8EEYIZwQVggvhBnCXT0TgmQKIo7iPZsGJxw9/HyILXjQ6+XGJBcuC9MNbiBhwB0IwhgSKhZq5DSM124ZVI1FoJWPFfT1ePbfvjkhbKjzZFymhggNKd9nou9k2hhPmWtpAZcKKhkoHSghKCUkatn8mW4ESi4Bp7vqFV5wfqDnlhPGx58aaXBW6PiG3UGTgDE0Dex224gjXGocdx/7tMQe/Rhgi5DbI66AF9qjcJJ5gpwa+N3bQBzhXBMNScOisGKnaTaGKxm4GJICLZlDUGSf8JKqX9TZNiW60TKW1d44lTf8zJ5rdkXKXk3MVrwYn8o2O/sJi68PZ3tSQZFnwGlGk9oJzkWdrTSM/xDmk4mq2gZxhVJj0GpVA49bFPbrrarxzOZ6u6ij2STu6rDHmH5RNYDEDURtbXLaYbmcklQqtWyTlvK+ba9jB9uU+IyzrjXS4DxGyAHOOcqJhAFNAtUwMF9Pjr28cs4z0qKaaNWpPRd0qmGo4/RG1V2o6xihzqHeBXqZCe9NCGoyHDu7fB0ZBaevryq94LxSqeGaAkV2x9YAobOBc/Qcxe8SAi9cPHg/UvSw11uol0YO6qTmU7L6kmqFnuvVkO3Qu3lCL4eejvatbFsYHBwyPOIcxLudYoB5bh3HhLAq1Ku4xastEeC/J4NrSJFbvNp28F+BIH4Dw9hJxVISZjUAAAAASUVORK5CYII=">
+                Start
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGDSURBVEhLYxgFAwImZzvrNid6zAbhtiSvaYuqw8oowW0pXtNg5oHMhlqDCVqTvXpjHcz/0wKDzIZagwlGLaYmxmvxvPKQfJjCXD+7/y93lVGEc/3s4RbPrwjNg1qDCRbXhmXBFBYEOPz/f6aBIgwyA2YeyGyoNZhgwCy+vTbX48ry3P8gfHN1PlbDSMEgM2DmgcyGWoMJ/p+pt8FmAHVwvQ3UGkyAYfGlCf//31oExgc3TgTje3s7kQyD4Ef7O+DyMPX/L09CU0eKxU/2/IcB0dQDYNw8FWgoshognjhnHlweDp4fRlM3JCzGEtS3lyX//zFRCQXfXxJD5aDGgn8tc/n/tYYBBf9aZINVLSom0eLvR2qBWaEQjEHsPxtDMHz8e60fhjp0c0i2+P6G4v+VoR5gDGKjy8MwYXVD0eIpuSH/55aEY8UgOZpZTCymisUvdpSBfdQc6/N/ej5uH4PkQGpAbJAedHNItph6eFBafL5e4P+peheaYKDZUGtGAT0BAwMA9DYh1+mxI68AAAAASUVORK5CYII=">
+            </button>
+        </div>
+
+        <!-- Vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+        <!-- Buefy JavaScript -->
+        <script src="https://unpkg.com/buefy"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/howler@2.0.6/dist/howler.min.js"></script>
+
+        <script>
+            class Carta {
+                constructor(audios) {
+                    this.audios = audios
+                }
+
+                shuffle() {
+                    let arr = this.audios
+                    let n = arr.length
+                    let temp, i
+
+                    while (n) {
+                        i = Math.floor(Math.random() * n--)
+                        temp = arr[n]
+                        arr[n] = arr[i]
+                        arr[i] = temp
+                    }
+
+                    this.audios = arr
+                }
+
+                play() {
+                    const self = this
+
+                    new Howl({
+                        src: self.audios[0],
+                        onend: () => {
+                            self.audios.shift();
+                            if (self.audios.length > 0) {
+                                setTimeout(() => self.play(), 3000)
+                            } else {
+                                setTimeout(() => app.message('おしまい'), 1000)
+                            }
+                        }
+                    }).play()
+                }
+            }
+
+            const audios = ['audios/i.mp3', 'audios/ko.mp3', 'audios/bu.mp3']
+
+            Vue.use(Buefy.default)
+
+            const app = new Vue({
+                el: '#app',
+                methods: {
+                    start: () => {
+                        app.message('いざ、しょうぶ！')
+                        const carta = new Carta(audios)
+                        carta.shuffle()
+                        carta.play()
+                    },
+                    message: (text) => {
+                        app.$toast.open(text)
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
