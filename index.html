@@ -94,12 +94,20 @@
                 data: {
                     audio_list: [],
                     carta: '',
-                    is_pause: false
+                    is_pause: false,
+                    is_playing: false
                 },
                 methods: {
                     start: () => {
+                        if (this.is_playing && !this.is_pause) {
+                            return false;
+                        } else {
+                            this.is_playing = true
+                        }
+
                         if (this.is_pause) {
                             this.carta.play()
+                            this.is_pause = false
                         } else {
                             app.getAudioList()
 
