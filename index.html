@@ -25,6 +25,10 @@
                 Start
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGDSURBVEhLYxgFAwImZzvrNid6zAbhtiSvaYuqw8oowW0pXtNg5oHMhlqDCVqTvXpjHcz/0wKDzIZagwlGLaYmxmvxvPKQfJjCXD+7/y93lVGEc/3s4RbPrwjNg1qDCRbXhmXBFBYEOPz/f6aBIgwyA2YeyGyoNZhgwCy+vTbX48ry3P8gfHN1PlbDSMEgM2DmgcyGWoMJ/p+pt8FmAHVwvQ3UGkyAYfGlCf//31oExgc3TgTje3s7kQyD4Ef7O+DyMPX/L09CU0eKxU/2/IcB0dQDYNw8FWgoshognjhnHlweDp4fRlM3JCzGEtS3lyX//zFRCQXfXxJD5aDGgn8tc/n/tYYBBf9aZINVLSom0eLvR2qBWaEQjEHsPxtDMHz8e60fhjp0c0i2+P6G4v+VoR5gDGKjy8MwYXVD0eIpuSH/55aEY8UgOZpZTCymisUvdpSBfdQc6/N/ej5uH4PkQGpAbJAedHNItph6eFBafL5e4P+peheaYKDZUGtGAT0BAwMA9DYh1+mxI68AAAAASUVORK5CYII=">
             </button>
+
+            <button class="button is-large is-danger is-outlined" @click="pause()">
+              Pause
+            </button>
         </div>
 
         <!-- Vue.js -->
@@ -60,7 +64,7 @@
                 play() {
                     const self = this
 
-                    new Howl({
+                    this.sound = new Howl({
                         src: self.audio_list[0],
                         onend: () => {
                             self.audio_list.shift();
@@ -70,7 +74,15 @@
                                 setTimeout(() => app.message('おしまい'), 1000)
                             }
                         }
-                    }).play()
+                    })
+
+                    this.sound.play()
+
+                    app.audio_list = self.audio_list
+                }
+
+                pause() {
+                    this.sound.pause()
                 }
             }
 
@@ -80,19 +92,25 @@
             const app = new Vue({
                 el: '#app',
                 data: {
-                    audio_list: []
+                    audio_list: [],
+                    carta: '',
+                    is_pause: false
                 },
                 methods: {
                     start: () => {
-                        app.getAudioList()
+                        if (this.is_pause) {
+                            this.carta.play()
+                        } else {
+                            app.getAudioList()
 
-                        app.message('いざ、しょうぶ！')
+                            app.message('いざ、しょうぶ！')
 
-                        setTimeout(() => {
-                            const carta = new Carta(this.audio_list)
-                            carta.shuffle()
-                            carta.play()
-                        }, 1000)
+                            setTimeout(() => {
+                                this.carta = new Carta(this.audio_list)
+                                this.carta.shuffle()
+                                this.carta.play()
+                            }, 1000)
+                        }
                     },
                     message: (text) => {
                         app.$toast.open(text)
@@ -100,6 +118,10 @@
                     getAudioList: () => {
                         app.$http.get('./audio_list.php')
                             .then(response => this.audio_list = response.data)
+                    },
+                    pause: () => {
+                        this.carta.pause()
+                        this.is_pause = true
                     }
                 }
             })
