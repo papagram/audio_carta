@@ -69,7 +69,7 @@
                         onend: () => {
                             self.audio_list.shift();
                             if (self.audio_list.length > 0) {
-                                setTimeout(() => self.play(), 3000)
+                                setTimeout(() => self.play(), 10000)
                             } else {
                                 setTimeout(() => app.message('おしまい'), 1000)
                             }
