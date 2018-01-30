@@ -98,7 +98,7 @@
                     is_playing: false
                 },
                 methods: {
-                    start: () => {
+                    start: function () {
                         if (this.is_playing && !this.is_pause) {
                             return false;
                         } else {
@@ -109,9 +109,9 @@
                             this.carta.play()
                             this.is_pause = false
                         } else {
-                            app.getAudioList()
+                            this.getAudioList()
 
-                            app.message('いざ、しょうぶ！')
+                            this.message('いざ、しょうぶ！')
 
                             setTimeout(() => {
                                 this.carta = new Carta(this.audio_list)
@@ -120,14 +120,14 @@
                             }, 10000)
                         }
                     },
-                    message: (text) => {
-                        app.$toast.open(text)
+                    message: function (text) {
+                        this.$toast.open(text)
                     },
-                    getAudioList: () => {
-                        app.$http.get('./audio_list.php')
+                    getAudioList: function () {
+                        this.$http.get('./audio_list.php')
                             .then(response => this.audio_list = response.data)
                     },
-                    pause: () => {
+                    pause: function () {
                         this.carta.pause()
                         this.is_pause = true
                     }
