@@ -114,7 +114,7 @@
 
                             this.message('いざ、しょうぶ！')
 
-                            setTimeout(() => {
+                            this.timer_id = setTimeout(() => {
                                 this.carta = new Carta(this.audio_list)
                                 this.carta.shuffle()
                                 this.carta.play()
