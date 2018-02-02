@@ -66,12 +66,16 @@
 
                     this.sound = new Howl({
                         src: self.audio_list[0],
-                        onend: () => {
+                        onend: function () {
                             self.audio_list.shift();
                             if (self.audio_list.length > 0) {
-                                app.timer_id = setTimeout(() => self.play(), 10000)
+                                app.timer_id = setTimeout(function () {
+                                    self.play()
+                                }, 10000)
                             } else {
-                                setTimeout(() => app.message('おしまい'), 1000)
+                                setTimeout(function () {
+                                    app.message('おしまい')
+                                }, 1000)
                             }
                         }
                     })
