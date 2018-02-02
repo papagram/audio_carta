@@ -106,18 +106,22 @@
                             this.is_playing = true
                         }
 
+                        let self = this
+
                         if (this.is_pause) {
-                            this.carta.play()
-                            this.is_pause = false
+                            setTimeout(function () {
+                                self.carta.play()
+                                self.is_pause = false
+                            }, 5000)
                         } else {
                             this.getAudioList()
 
                             this.message('いざ、しょうぶ！')
 
-                            this.timer_id = setTimeout(() => {
-                                this.carta = new Carta(this.audio_list)
-                                this.carta.shuffle()
-                                this.carta.play()
+                            setTimeout(function () {
+                                self.carta = new Carta(self.audio_list)
+                                self.carta.shuffle()
+                                self.carta.play()
                             }, 5000)
                         }
                     },
