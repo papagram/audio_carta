@@ -59,7 +59,6 @@
                     }
 
                     this.audio_list = arr
-                    console.log(this.audio_list)
                 }
 
                 play() {
@@ -72,7 +71,7 @@
                             if (self.audio_list.length > 0) {
                                 app.timer_id = setTimeout(function () {
                                     self.play()
-                                }, 1000)
+                                }, 10000)
                             } else {
                                 setTimeout(function () {
                                     app.message('おしまい')
@@ -81,8 +80,8 @@
                         }
                     })
 
-                    var a = this.sound.play()
-                    console.log(a)
+                    const audio_id = this.sound.play()
+                    console.log(audio_id)
 
                     app.audio_list = self.audio_list
                 }
@@ -106,29 +105,31 @@
                 },
                 methods: {
                     start: function () {
-                        if (this.is_playing && !this.is_pause) {
-                            return false;
-                        } else {
-                            this.is_playing = true
-                        }
-
                         let self = this
 
-                        if (this.is_pause) {
-                            setTimeout(function () {
-                                self.carta.play()
-                                self.is_pause = false
-                            }, 1000)
+                        if (this.is_playing) {
+                            return false
                         } else {
-                            this.getAudioList()
+                            if (this.is_pause) {
+                                // Restart
+                                self.is_pause = false
+                                self.is_playing = true
+                                setTimeout(function () {
+                                    self.carta.play()
+                                }, 5000)
+                            } else {
+                                // Initial
+                                this.getAudioList()
 
-                            this.message('いざ、しょうぶ！')
+                                this.message('いざ、しょうぶ！')
 
-                            setTimeout(function () {
-                                self.carta = new Carta(self.audio_list)
-                                self.carta.shuffle()
-                                self.carta.play()
-                            }, 1000)
+                                self.is_playing = true
+                                setTimeout(function () {
+                                    self.carta = new Carta(self.audio_list)
+                                    self.carta.shuffle()
+                                    self.carta.play()
+                                }, 5000)
+                            }
                         }
                     },
                     message: function (text) {
@@ -141,7 +142,9 @@
                     pause: function () {
                         this.carta.pause()
                         this.is_pause = true
+                        this.is_playing = false
                         clearTimeout(this.timer_id)
+                        console.log('Paused!!!')
                     }
                 }
             })
